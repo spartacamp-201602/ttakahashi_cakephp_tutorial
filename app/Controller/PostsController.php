@@ -4,6 +4,7 @@ class PostsController extends AppController
 {
     public $helpers = array ('Html','Form');
 
+    public $components = array('Flash');
 
     public function index()
     {
@@ -23,5 +24,23 @@ class PostsController extends AppController
         $this->set('post',$post);
 
     }
+    public function add()
+    {
+        if($this->request->is('post'))
+        {
+            if($this->Post->save($this->request->data))
+            {   //保存に成功した場合
+                // フラッシュメッセージ
+                $this->Flash->success('新しい記事を追加しました');
+                // リダイレクト
+                return $this->redirect(array('action'=>'index'));
+            }
+        }else
+        {
+                return $this->Flash->error('保存できませんでした');
+        }
+    }
+
+
 
 }
