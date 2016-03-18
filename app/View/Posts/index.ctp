@@ -1,6 +1,14 @@
 <h2>Blog Posts</h2>
 <?php //debug($posts) ?>
 
+<p>
+<?php echo $this->Html->link('新規記事登録',
+                            array('controller'=>'posts',
+                                'action' => 'add'));
+
+?>
+
+</p>
 
 <table>
     <tr>
