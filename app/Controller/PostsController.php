@@ -61,8 +61,50 @@ class PostsController extends AppController
 
         }
 
+    }
+
+    public function edit($id)
+    {
+    // 既存レコード取得
+        $post = $this->Post->findById($id);
+
+        if(!$post)
+            // 既存レコードが見つからない場合
+        {
+            throw new NotFoundException('そのような記事はありません');
+        }
+
+        $this->Post->id = $id;
+
+        // フォームからの送信をチェック
+        if($this->request->is(array('post','put')))
+        {
+        // 更新処理を試みる
+            if($this->Post->save($this->request->data))
+            {
+            // フラッシュメッセージとともにリダイレクト
+                $this->Flash->success('記事' . $id.'を更新しました');
+               return $this->redirect (array('action' =>'index'));
+
+            }
+
+            else
+            {
+                return $this->Flash->error('記事を編集できませんでした');
+
+            }
+
+            if(!$this->request->data)
+            {
+                $this->request->data = $post;
+            }
+
+
+        }
+
 
     }
+
 
 
 

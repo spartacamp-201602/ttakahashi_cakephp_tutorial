@@ -33,11 +33,20 @@
 <td><?= h($post['Post']['body'] ); ?></td>
 
 <td>
+            <?php echo $this->Html->link(
+                    '編集',
+                    array('controller'=>'posts','action'=>'edit',
+                        $post['Post']['id']))
+                ?>
+
+
+
             <?php echo $this->Form->postLink(
                     '削除',
                     array('action' => 'delete', $post['Post']['id']),
                     array('confirm' => '削除してよろしいですか？')
                 ) ?>
+
 </td>
 
 
